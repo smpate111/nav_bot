@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- user-defined parameters for the pillar -->
+    <xacro:property name="pillar_radius" value="0.005"/>
+    <xacro:property name="pillar_length" value="0.0508"/>
+    <xacro:property name="pillar_mass" value="0.1"/>
 
     <!-- pillar with user-defined parameters -->
     <xacro:macro name="robot_pillar" params="parent child xyz rpy">
@@ -14,32 +18,37 @@
         <link name="${child}">
             <!-- visual -->
             <visual>
-               <!--<origin xyz="${xyz}"/>-->
+                <origin xyz="0 0 ${pillar_length/2}" rpy="0 0 0"/>
                 <geometry>
-                    <cylinder radius="0.005" length="0.0508"/>
+                    <cylinder radius="${pillar_radius}" length="${pillar_length}"/>
                 </geometry>
                 <material name="white"/>
             </visual>
 
             <!-- collision -->
             <collision>
-                <!--<origin xyz="${xyz}"/>-->
+                <origin xyz="0 0 ${pillar_length/2}" rpy="0 0 0"/>
                 <geometry>
-                    <cylinder radius="0.005" length="0.0508"/>
+                    <cylinder radius="${pillar_radius}" length="${pillar_length}"/>
                 </geometry>
             </collision>
 
             <!-- inertia -->
             <inertial>
-                <mass value="0.1"/>
-                <inertia ixx="${(1/12) * (0.1) * ((3 * 0.1143 * 0.1143) + (0.005 * 0.005))}"
+                <origin xyz="0 0 ${pillar_length/2}" rpy="0 0 0"/>
+                <mass value="${pillar_mass}"/>
+                <inertia ixx="${(1/12) * (pillar_mass) * ((3 * pillar_radius * pillar_radius) + (pillar_length * pillar_length))}"
                         ixy="0.0"
                         ixz="0.0"
-                        iyy="${(1/12) * (0.1) * ((3 * 0.1143 * 0.1143) + (0.005 * 0.005))}"
+                        iyy="${(1/12) * (pillar_mass) * ((3 * pillar_radius * pillar_radius) + (pillar_length * pillar_length))}"
                         iyz="0.0"
-                        izz="${(1/2) * (0.1) * (0.1143 * 0.1143)}"/>
+                        izz="${(1/2) * (pillar_mass) * (pillar_radius * pillar_radius)}"/>
             </inertial>
         </link>
+
+        <gazebo reference="${child}">
+            <material>Gazebo/White</material>
+        </gazebo>
     </xacro:macro>
 
 </robot>

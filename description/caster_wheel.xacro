@@ -2,19 +2,15 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
     <!-- user-defined parameters for the wheel -->
     <xacro:property name="wheel_radius" value="0.025"/>
-    <xacro:property name="wheel_length" value="0.02"/>
     <xacro:property name="wheel_mass" value="0.1"/>
-    <xacro:property name="collision_radius" value="0.035"/>
 
     <!-- wheel with user-defined parameters -->
-    <xacro:macro name="robot_wheel" params="parent child xyz rpy abc">
+    <xacro:macro name="robot_caster_wheel" params="parent child xyz">
         <!-- joint -->
-        <joint name="${parent}_to_${child}_joint" type="continuous">
+        <joint name="${parent}_to_${child}_joint" type="fixed">
             <parent link="${parent}"/>
             <child link="${child}"/>
-            <origin xyz="${xyz}" rpy="${rpy}"/>
-            <axis xyz="${abc}"/>
-            <limit effort="0.05" velocity="10.0"/>
+            <origin xyz="${xyz}" rpy="0 0 0"/>
         </joint>
 
         <!-- link -->
@@ -23,16 +19,16 @@
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
+                    <sphere radius="${wheel_radius}"/>
                 </geometry>
-                <material name="blue"/>
+                <material name="green"/>
             </visual>
 
             <!-- collision -->
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
-                    <sphere radius="${collision_radius}"/>
+                    <sphere radius="${wheel_radius}"/>
                 </geometry>
             </collision>
 
@@ -40,17 +36,19 @@
             <inertial>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <mass value="${wheel_mass}"/>
-                <inertia ixx="${(1/12) * (wheel_mass) * ((3 * wheel_radius * wheel_radius) + (wheel_length * wheel_length))}"
+                <inertia ixx="${(2/5) * (wheel_mass) * (wheel_radius * wheel_radius)}"
                         ixy="0.0"
                         ixz="0.0"
-                        iyy="${(1/12) * (wheel_mass) * ((3 * wheel_radius * wheel_radius) + (wheel_length * wheel_length))}"
+                        iyy="${(2/5) * (wheel_mass) * (wheel_radius * wheel_radius)}"
                         iyz="0.0"
-                        izz="${(1/2) * (wheel_mass) * (wheel_radius * wheel_radius)}"/>
+                        izz="${(2/5) * (wheel_mass) * (wheel_radius * wheel_radius)}"/>
             </inertial>
         </link>
 
         <gazebo reference="${child}">
-            <material>Gazebo/Blue</material>
+            <material>Gazebo/Green</material>
+            <mu1 value="0.001"/>
+            <mu2 value="0.001"/>
         </gazebo>
     </xacro:macro>
 

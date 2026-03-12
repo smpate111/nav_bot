@@ -1,8 +1,13 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- user-defined parameters for the base plate -->
+    <xacro:property name="plate_radius" value="0.1143"/>
+    <xacro:property name="plate_length" value="0.005"/>
+    <xacro:property name="plate_mass" value="0.5"/>
 
     <!-- base plate with user-defined parameters -->
     <xacro:macro name="robot_base_plate" params="parent child xyz rpy">
+
         <!-- joint -->
         <joint name="${child}_joint" type="fixed">
             <parent link="${parent}"/>
@@ -14,32 +19,37 @@
         <link name="${child}">
             <!-- visual -->
             <visual>
-               <!--<origin xyz="${xyz}"/>-->
+                <origin xyz="${plate_radius} 0 ${plate_length/2}" rpy="0 0 0"/>
                 <geometry>
-                    <cylinder radius="0.1143" length="0.005"/>
+                    <cylinder radius="${plate_radius}" length="${plate_length}"/>
                 </geometry>
                 <material name="orange"/>
             </visual>
 
             <!-- collision -->
             <collision>
-                <!--<origin xyz="${xyz}"/>-->
+                <origin xyz="${plate_radius} 0 ${plate_length/2}" rpy="0 0 0"/>
                 <geometry>
-                    <cylinder radius="0.1143" length="0.005"/>
+                    <cylinder radius="${plate_radius}" length="${plate_length}"/>
                 </geometry>
             </collision>
 
             <!-- inertia -->
             <inertial>
-                <mass value="0.5"/>
-                <inertia ixx="${(1/12) * (0.5) * ((3 * 0.1143 * 0.1143) + (0.005 * 0.005))}"
+                <origin xyz="${plate_radius} 0 ${plate_length/2}" rpy="0 0 0"/>
+                <mass value="${plate_mass}"/>
+                <inertia ixx="${(1/12) * (plate_mass) * ((3 * plate_radius * plate_radius) + (plate_length * plate_length))}"
                         ixy="0.0"
                         ixz="0.0"
-                        iyy="${(1/12) * (0.5) * ((3 * 0.1143 * 0.1143) + (0.005 * 0.005))}"
+                        iyy="${(1/12) * (plate_mass) * ((3 * plate_radius * plate_radius) + (plate_length * plate_length))}"
                         iyz="0.0"
-                        izz="${(1/2) * (0.5) * (0.1143 * 0.1143)}"/>
+                        izz="${(1/2) * (plate_mass) * (plate_radius * plate_radius)}"/>
             </inertial>
         </link>
+
+        <gazebo reference="${child}">
+            <material>Gazebo/Orange</material>
+        </gazebo>
     </xacro:macro>
 
 </robot>
