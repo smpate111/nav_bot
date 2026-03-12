@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <!-- wheel with user-defined parameters -->
+    <xacro:macro name="robot_castor_wheel" params="parent child xyz">
+        <!-- joint -->
+        <joint name="${parent}_to_${child}_joint" type="fixed">
+            <parent link="${parent}"/>
+            <child link="${child}"/>
+            <origin xyz="${xyz}"/>
+        </joint>
+
+        <!-- link -->
+        <link name="${child}">
+            <!-- visual -->
+            <visual>
+               <!--<origin xyz="${xyz}"/>-->
+                <geometry>
+                    <sphere radius="0.025"/>
+                </geometry>
+                <material name="green"/>
+            </visual>
+
+            <!-- collision -->
+            <collision>
+                <!--<origin xyz="${xyz}"/>-->
+                <geometry>
+                    <sphere radius="0.025"/>
+                </geometry>
+            </collision>
+
+            <!-- inertia -->
+            <inertial>
+                <mass value="0.1"/>
+                <inertia ixx="${(2/5) * (0.1) * (0.025 * 0.025)}"
+                        ixy="0.0"
+                        ixz="0.0"
+                        iyy="${(2/5) * (0.1) * (0.025 * 0.025)}"
+                        iyz="0.0"
+                        izz="${(2/5) * (0.1) * (0.025 * 0.025)}"/>
+            </inertial>
+        </link>
+    </xacro:macro>
+
+</robot>

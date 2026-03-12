@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <!-- base plate with user-defined parameters -->
+    <xacro:macro name="robot_base_plate" params="parent child xyz rpy">
+        <!-- joint -->
+        <joint name="${child}_joint" type="fixed">
+            <parent link="${parent}"/>
+            <child link="${child}"/>
+            <origin xyz="${xyz}" rpy="${rpy}"/>
+        </joint>
+
+        <!-- link -->
+        <link name="${child}">
+            <!-- visual -->
+            <visual>
+               <!--<origin xyz="${xyz}"/>-->
+                <geometry>
+                    <cylinder radius="0.1143" length="0.005"/>
+                </geometry>
+                <material name="orange"/>
+            </visual>
+
+            <!-- collision -->
+            <collision>
+                <!--<origin xyz="${xyz}"/>-->
+                <geometry>
+                    <cylinder radius="0.1143" length="0.005"/>
+                </geometry>
+            </collision>
+
+            <!-- inertia -->
+            <inertial>
+                <mass value="0.5"/>
+                <inertia ixx="${(1/12) * (0.5) * ((3 * 0.1143 * 0.1143) + (0.005 * 0.005))}"
+                        ixy="0.0"
+                        ixz="0.0"
+                        iyy="${(1/12) * (0.5) * ((3 * 0.1143 * 0.1143) + (0.005 * 0.005))}"
+                        iyz="0.0"
+                        izz="${(1/2) * (0.5) * (0.1143 * 0.1143)}"/>
+            </inertial>
+        </link>
+    </xacro:macro>
+
+</robot>
