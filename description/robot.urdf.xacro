@@ -5,6 +5,7 @@
     <xacro:include filename="robot_core.xacro"/>
     <xacro:include filename="gazebo_control.xacro"/>
     <xacro:include filename="lidar.xacro"/>
+    <xacro:include filename="camera.xacro"/>
 
 
 
@@ -18,6 +19,25 @@
         parent="third_base_plate_link"
         child="laser_frame"
         x="0.174" y="0" z="0.025"
+        row="0" pitch="0" yaw="0"
+    />
+
+    <!-- 
+        ##################################################
+    -->
+
+
+    
+    <!-- 
+        ##################################################
+            Camera
+        ##################################################
+    -->
+    
+    <xacro:robot_camera
+        parent="second_base_plate_link"
+        child="camera_frame"
+        x="0.2186" y="0" z="0.02"
         row="0" pitch="0" yaw="0"
     />
 

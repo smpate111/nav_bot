@@ -49,10 +49,7 @@
             </inertial>
         </link>
 
-        <!--<gazebo reference="${child}_joint">
-            <preserveFixedJoint>true</preserveFixedJoint>
-        </gazebo>-->
-
+        <!-- sensor -->
         <gazebo reference="${child}">
             <material>Gazebo/Red</material>
 
