@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <!-- include other xacro files -->
     <xacro:include filename="material_colors.xacro"/>
@@ -10,121 +10,251 @@
     <xacro:include filename="caster_wheel.xacro"/>
 
 
-
-    <!-- base link -->
-    <link name="base_link"/>
-
-
-
-    <!-- base plate layers -->
     <!-- 
-        base plate diameter:
-            d: 0.2286
-        base plate radius:
-            r: 0.1143
-        base plate thickness:
-            t: 0.005
-        square side length:
-            sl: sqrt(2) * (d / 2) = 0.1616
+        ##################################################
+            Base Link
+        ##################################################
     -->
     
-
+    <link name="base_link"/>
+    
     <!-- 
-        base plate 0 coordinates:
-            x: -r = -0.1143
-            y: 0
-            z: 0.075
-        base plate 1 coordinates:
-            x: 0
-            y: 0
-            z: t + p = 0.0558
-        base plate 2 coordinates:
-            x: 0
-            y: 0
-            z: t + p = 0.0558
-    -->
-    <xacro:robot_base_plate parent="base_link" child="first_base_plate_link" xyz="-0.1143 0 0.075" rpy="0 0 0"/>
-    <xacro:robot_base_plate parent="first_base_plate_link" child="second_base_plate_link" xyz="0 0 0.0558" rpy="0 0 0"/>
-    <xacro:robot_base_plate parent="second_base_plate_link" child="third_base_plate_link" xyz="0 0 0.0558" rpy="0 0 0"/>
-
-
-
-    <!-- pillars -->
-    <!-- 
-        pillar length:
-            p: 0.0508
-        pillar xy-position offset:
-            o: 0.01
+        ##################################################
     -->
 
 
-    <!-- pillar offset variables -->
+
+    <!-- 
+        ##################################################
+            Base Plate Layers
+        ##################################################
+
+
+        ##################################################
+            Base Plate diameter:
+                d: 0.2286
+            Base Plate radius:
+                r: 0.1143
+            Base Plate thickness:
+                t: 0.005
+            Square side length:
+                sl: sqrt(2) * (d / 2) = 0.1616
+        ##################################################
+
+
+        ##################################################
+            Base Plate 0 coordinates:
+                x: -r = -0.1143
+                y: 0
+                z: 0.075
+            Base Plate 1 coordinates:
+                x: 0
+                y: 0
+                z: t + p = 0.0558
+            Base Plate 2 coordinates:
+                x: 0
+                y: 0
+                z: t + p = 0.0558
+        ##################################################
+    -->
+
+    <xacro:robot_base_plate
+        parent="base_link"
+        child="first_base_plate_link"
+        x="-0.1143" y="0" z="0.075"
+        row="0" pitch="0" yaw="0"
+    />
+
+    <xacro:robot_base_plate
+        parent="first_base_plate_link"
+        child="second_base_plate_link"
+        x="0" y="0" z="0.0558"
+        row="0" pitch="0" yaw="0"
+    />
+
+    <xacro:robot_base_plate
+        parent="second_base_plate_link"
+        child="third_base_plate_link"
+        x="0" y="0" z="0.0558"
+        row="0" pitch="0" yaw="0"
+    />
+
+    <!-- 
+        ##################################################
+    -->
+
+
+
+    <!-- 
+        ##################################################
+            Pillars
+        ##################################################
+
+
+        ##################################################
+            Pillar length:
+                p: 0.0508
+            Pillar xy-position offset:
+                o: 0.01
+        ##################################################
+    -->
+
+
+    <!-- 
+        ##################################################
+            Pillar offset variables
+        ##################################################
+    -->
+
     <xacro:property name="pillar_x_front" value="0.1851"/>
     <xacro:property name="pillar_x_back" value="0.0435"/>
     <xacro:property name="pillar_y_offset" value="0.0708"/>
     <xacro:property name="pillar_z_offset" value="0.005"/>
 
+    <!-- 
+        ##################################################
+    -->
 
-    <!-- pillars for base plate 0 -->
-    <xacro:robot_pillar parent="first_base_plate_link"
+
+    <!-- 
+        ##################################################
+            Pillars for Base Plate 0
+        ##################################################
+    -->
+
+    <xacro:robot_pillar
+        parent="first_base_plate_link"
         child="first_base_plate_front_right_pillar_link"
-        xyz="${pillar_x_front} ${pillar_y_offset} ${pillar_z_offset}"
-        rpy="0 0 0"
+        x="${pillar_x_front}" y="${pillar_y_offset}" z="${pillar_z_offset}"
+        row="0" pitch="0" yaw="0"
     />
-    
-    <xacro:robot_pillar parent="first_base_plate_link"
+
+    <xacro:robot_pillar
+        parent="first_base_plate_link"
         child="first_base_plate_front_left_pillar_link"
-        xyz="${pillar_x_front} ${-pillar_y_offset} ${pillar_z_offset}"
-        rpy="0 0 0"
+        x="${pillar_x_front}" y="${-pillar_y_offset}" z="${pillar_z_offset}"
+        row="0" pitch="0" yaw="0"
     />
-    
-    <xacro:robot_pillar parent="first_base_plate_link"
+
+    <xacro:robot_pillar
+        parent="first_base_plate_link"
         child="first_base_plate_back_right_pillar_link"
-        xyz="${pillar_x_back} ${pillar_y_offset} ${pillar_z_offset}"
-        rpy="0 0 0"
+        x="${pillar_x_back}" y="${pillar_y_offset}" z="${pillar_z_offset}"
+        row="0" pitch="0" yaw="0"
     />
-    
-    <xacro:robot_pillar parent="first_base_plate_link"
+
+    <xacro:robot_pillar
+        parent="first_base_plate_link"
         child="first_base_plate_back_left_pillar_link"
-        xyz="${pillar_x_back} ${-pillar_y_offset} ${pillar_z_offset}"
-        rpy="0 0 0"
+        x="${pillar_x_back}" y="${-pillar_y_offset}" z="${pillar_z_offset}"
+        row="0" pitch="0" yaw="0"
     />
 
+    <!-- 
+        ##################################################
+    -->
 
-    <!-- pillars for base plate 1 -->
-    <xacro:robot_pillar parent="second_base_plate_link"
+
+    <!-- 
+        ##################################################
+            Pillars for Base Plate 1
+        ##################################################
+    -->
+        
+    <xacro:robot_pillar
+        parent="second_base_plate_link"
         child="second_base_plate_front_right_pillar_link"
-        xyz="${pillar_x_front} ${pillar_y_offset} ${pillar_z_offset}"
-        rpy="0 0 0"
+        x="${pillar_x_front}" y="${pillar_y_offset}" z="${pillar_z_offset}"
+        row="0" pitch="0" yaw="0"
     />
-    
-    <xacro:robot_pillar parent="second_base_plate_link"
+
+    <xacro:robot_pillar
+        parent="second_base_plate_link"
         child="second_base_plate_front_left_pillar_link"
-        xyz="${pillar_x_front} ${-pillar_y_offset} ${pillar_z_offset}"
-        rpy="0 0 0"
+        x="${pillar_x_front}" y="${-pillar_y_offset}" z="${pillar_z_offset}"
+        row="0" pitch="0" yaw="0"
     />
-    
-    <xacro:robot_pillar parent="second_base_plate_link"
+
+    <xacro:robot_pillar
+        parent="second_base_plate_link"
         child="second_base_plate_back_right_pillar_link"
-        xyz="${pillar_x_back} ${pillar_y_offset} ${pillar_z_offset}"
-        rpy="0 0 0"
+        x="${pillar_x_back}" y="${pillar_y_offset}" z="${pillar_z_offset}"
+        row="0" pitch="0" yaw="0"
     />
-    
-    <xacro:robot_pillar parent="second_base_plate_link"
+
+    <xacro:robot_pillar
+        parent="second_base_plate_link"
         child="second_base_plate_back_left_pillar_link"
-        xyz="${pillar_x_back} ${-pillar_y_offset} ${pillar_z_offset}"
-        rpy="0 0 0"
+        x="${pillar_x_back}" y="${-pillar_y_offset}" z="${pillar_z_offset}"
+        row="0" pitch="0" yaw="0"
     />
 
+    <!-- 
+        ##################################################
+    -->
 
 
-    <!-- drive wheels -->
-    <xacro:robot_wheel parent="base_link" child="left_wheel_link" xyz="0 0.124 0.075" rpy="-${pi/2} 0 0" abc="0 0 1"/>
-    <xacro:robot_wheel parent="base_link" child="right_wheel_link" xyz="0 -0.124 0.075" rpy="${pi/2} 0 0" abc="0 0 -1"/>
+    <!-- 
+        ##################################################
+    -->
+
+
+
+    <!-- 
+        ##################################################
+            Drive Wheels
+        ##################################################
+    -->
+    
+    <xacro:robot_wheel
+        parent="base_link"
+        child="left_wheel_link"
+        x="0" y="0.124" z="0.075"
+        row="${-pi/2}" pitch="0" yaw="0"
+        a="0" b="0" c="1"
+    />
+
+    <xacro:robot_wheel
+        parent="base_link"
+        child="right_wheel_link"
+        x="0" y="-0.124" z="0.075"
+        row="${pi/2}" pitch="0" yaw="0"
+        a="0" b="0" c="-1"
+    />
+
+    <!-- 
+        ##################################################
+    -->
     
 
     
-    <!-- caster wheel -->
-    <xacro:robot_caster_wheel parent="first_base_plate_link" child="caster_wheel_link" xyz="0.174 0 0"/>
+    <!-- 
+        ##################################################
+            Caster Wheels
+        ##################################################
+
+
+        ##################################################
+            Front x: 0.174
+            Center: 0.1143
+            Back x: Center - (Front x - Center): 0.0546
+        ##################################################
+    -->
+    
+    <xacro:robot_caster_wheel
+        parent="first_base_plate_link"
+        child="front_caster_wheel_link"
+        x="0.174" y="0" z="0"
+    />
+
+    <xacro:robot_caster_wheel
+        parent="first_base_plate_link"
+        child="back_caster_wheel_link"
+        x="0.0546" y="0" z="0"
+    />
+
+    <!-- 
+        ##################################################
+    -->
 
 </robot>

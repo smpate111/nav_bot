@@ -1,7 +1,28 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="nav_bot">
 
+    <!-- include other xacro files -->
     <xacro:include filename="robot_core.xacro"/>
     <xacro:include filename="gazebo_control.xacro"/>
+    <xacro:include filename="lidar.xacro"/>
+
+
+
+    <!-- 
+        ##################################################
+            LIDAR sensor
+        ##################################################
+    -->
+    
+    <xacro:robot_lidar
+        parent="third_base_plate_link"
+        child="laser_frame"
+        x="0.174" y="0" z="0.025"
+        row="0" pitch="0" yaw="0"
+    />
+
+    <!-- 
+        ##################################################
+    -->
 
 </robot>

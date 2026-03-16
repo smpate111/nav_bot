@@ -4,15 +4,17 @@
     <xacro:property name="plate_radius" value="0.1143"/>
     <xacro:property name="plate_length" value="0.005"/>
     <xacro:property name="plate_mass" value="0.5"/>
+    <xacro:property name="I_plate" value="${(1/12) * (plate_mass) * ((3 * plate_radius * plate_radius) + (plate_length * plate_length))}"/>
+    <xacro:property name="Iz_plate" value="${(1/2) * (plate_mass) * (plate_radius * plate_radius)}"/>
 
     <!-- base plate with user-defined parameters -->
-    <xacro:macro name="robot_base_plate" params="parent child xyz rpy">
+    <xacro:macro name="robot_base_plate" params="parent child x y z row pitch yaw">
 
         <!-- joint -->
         <joint name="${child}_joint" type="fixed">
             <parent link="${parent}"/>
             <child link="${child}"/>
-            <origin xyz="${xyz}" rpy="${rpy}"/>
+            <origin xyz="${x} ${y} ${z}" rpy="${row} ${pitch} ${yaw}"/>
         </joint>
 
         <!-- link -->
@@ -38,12 +40,12 @@
             <inertial>
                 <origin xyz="${plate_radius} 0 ${plate_length/2}" rpy="0 0 0"/>
                 <mass value="${plate_mass}"/>
-                <inertia ixx="${(1/12) * (plate_mass) * ((3 * plate_radius * plate_radius) + (plate_length * plate_length))}"
+                <inertia ixx="${I_plate}"
                         ixy="0.0"
                         ixz="0.0"
-                        iyy="${(1/12) * (plate_mass) * ((3 * plate_radius * plate_radius) + (plate_length * plate_length))}"
+                        iyy="${I_plate}"
                         iyz="0.0"
-                        izz="${(1/2) * (plate_mass) * (plate_radius * plate_radius)}"/>
+                        izz="${Iz_plate}"/>
             </inertial>
         </link>
 
