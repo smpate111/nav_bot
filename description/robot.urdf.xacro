@@ -5,7 +5,7 @@
     <xacro:include filename="robot_core.xacro"/>
     <xacro:include filename="gazebo_control.xacro"/>
     <xacro:include filename="lidar.xacro"/>
-    <!--<xacro:include filename="camera.xacro"/>-->
+    <xacro:include filename="camera.xacro"/>-
     <xacro:include filename="depth_camera.xacro"/>
 
 
@@ -31,16 +31,16 @@
     
     <!-- 
         ##################################################
-            Camera
+            Camera sensor
         ##################################################
     -->
     
-    <!--<xacro:robot_camera
-        parent="second_base_plate_link"
+    <xacro:robot_camera
+        parent="first_base_plate_link"
         child="camera_frame"
         x="0.2186" y="0" z="0.02"
         row="0" pitch="0" yaw="0"
-    />-->
+    />
 
     <!-- 
         ##################################################
@@ -50,13 +50,13 @@
 
     <!-- 
         ##################################################
-            Depth Camera
+            Depth Camera sensor
         ##################################################
     -->
     
     <xacro:robot_depth_camera
         parent="second_base_plate_link"
-        child="camera_frame"
+        child="camera_depth_frame"
         x="0.2186" y="0" z="0.02"
         row="0" pitch="0" yaw="0"
     />

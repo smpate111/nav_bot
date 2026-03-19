@@ -16,7 +16,7 @@
             <child link="${child}"/>
             <origin xyz="${x} ${y} ${z}" rpy="${row} ${pitch} ${yaw}"/>
             <axis xyz="${a} ${b} ${c}"/>
-            <limit effort="0.05" velocity="10.0"/>
+            <limit effort="10.0" velocity="40.0"/>
         </joint>
 
         <!-- link -->
